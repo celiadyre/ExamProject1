@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+:root{
+    /*colors*/
+    --primary-color: #007090;
+    --secondary-color: #003F49;
+    --accent-color: #01A7C2;
+
+    --background-color: #A3BAC3;/*(background)*/
+    --black-text: #06070E;/*(text)*/
+    --color-white: #FFFFFF;/*(secondary text and forms)*/
+
+    /*padding and margin*/
+    --padding-forms: 45px;/**/
+    --padding-formsHorizontal: 60px;
+    --padding-products: 70px;
+    --padding-section: 50px;
+    /*fonts*/
+    --font: "Inter", sans-serif;
+
+    --heading-1: 85px;
+    --heading-2: 53px;
+    --heading-3: 53px;
+    --paragraph: 32px;
+    --small-txt: 27px;
+
+    --line-height: 1.5;
+
+
+
+}
+
+h1, h2, h3, button{
+    font-family: var(--font);
+    color: var(--black-text);
+    font-weight: 700;
+    line-height: var(--line-height);
+}
+
+h1{
+    font-size: var(--heading-1);
+}
+h2{
+    font-size: var(--heading-2);
+}
+h3{
+    font-size: var(--heading-3);
+}
+p{
+    font-size: var(--paragraph);
+}
+a{
+    font-size: var(--heading-3);
+}
+label{
+    font-size: var(--heading-1);
+}
