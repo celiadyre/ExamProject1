@@ -31,8 +31,7 @@
 
 h1, h2, h3, button{
     font-family: var(--font);
-    color: var(--black-text);
-    font-weight: 700;
+    font-weight: 500;
     line-height: var(--line-height);
 }
 
