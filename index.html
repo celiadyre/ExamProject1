@@ -1,17 +1,185 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TEXH</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Shop</title>
+  <link rel="stylesheet" href="css/global.css" />
 </head>
 <body>
-    <nav>
-        <a href="#/">Home</a>
-        <a href="#/products">Products</a>
-        <a href="#/product">Product</a>
-    </nav>
+    <header>
+    </header>
+<div class="app">
+    <main>
+      <section class="hero" id="hero">
+        <button class="carousel-btn prev" aria-label="Previous slide">←</button>
+        <div id="slides"></div>
+        <button class="carousel-btn next" aria-label="Next slide">→</button>
+      </section>
 
-    <div id="app"></div>
+      <div id="shop">
+        <p class="loading">Loading products...</p>
+      </div>
+      
+    </main>
 
-    <script src="app.js"></script>
+    <footer>
+
+    </footer>
+  </div>
+
+  <script>
+    const API_URL = "data/products.json";
+
+    const shop = document.querySelector("#shop");
+    const slidesContainer = document.querySelector("#slides");
+    const prevBtn = document.querySelector(".prev");
+    const nextBtn = document.querySelector(".next");
+
+    let slides = [];
+    let currentSlide = 0;
+    let carouselTimer;
+
+    async function getProducts() {
+  const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error(`Could not load products. Status: ${response.status}`);
+  }
+
+  const result = await response.json();
+
+  if (!result.data) {
+    throw new Error("products.json does not contain a data array.");
+  }
+
+  return result.data;
+}
+
+    function formatPrice(price) {
+      return `$${Number(price).toFixed(2)}`;
+    }
+
+    function getDisplayPrice(product) {
+      return product.discountedPrice ?? product.price;
+    }
+
+    function getCategoryProducts(products, tag) {
+      return products
+        .filter(product => product.tags.includes(tag))
+    }
+
+    function createProductCard(product) {
+      return `
+        <button class="product-card" type="button" data-id="${product.id}">
+          <div class="product-image">
+            <img
+              src="${product.image.url}"
+              alt="${product.image.alt || product.title}"
+            />
+          </div>
+
+          <div class="product-info">
+            <span class="product-title">${product.title}</span>
+            <span>${formatPrice(getDisplayPrice(product))}</span>
+          </div>
+        </button>
+      `;
+    }
+
+    function renderProducts(products) {
+      const categories = [
+        { title: "Beauty", tag: "beauty" },
+        { title: "Fashion", tag: "fashion" },
+        { title: "Audio", tag: "audio" },
+        { title: "Electronics", tag: "electronics" }
+      ];
+
+      shop.innerHTML = categories.map(category => {
+        const categoryProducts = getCategoryProducts(products, category.tag);
+
+        return `
+          <section class="category">
+            <h2>${category.title}</h2>
+            <div class="product-grid">
+              ${categoryProducts.map(createProductCard).join("")}
+            </div>
+          </section>
+        `;
+      }).join("");
+    }
+
+    function renderCarousel(products) {
+      const featuredProducts = products
+        .filter(product => product.rating >= 5)
+        .slice(0, 3);
+
+      slidesContainer.innerHTML = featuredProducts.map((product, index) => `
+        <article class="slide ${index === 0 ? "active" : ""}">
+          <img
+            src="${product.image.url}"
+            alt="${product.image.alt || product.title}"
+          />
+
+          <div class="slide-content">
+            <h1>${product.title}</h1>
+            <h2>${formatPrice(getDisplayPrice(product))}</h2>
+          </div>
+        </article>
+      `).join("");
+
+      slides = document.querySelectorAll(".slide");
+    }
+
+    function showSlide(index) {
+      if (!slides.length) return;
+
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add("active");
+    }
+
+    function startCarousel() {
+      clearInterval(carouselTimer);
+
+      carouselTimer = setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 4000);
+    }
+
+    nextBtn.addEventListener("click", () => {
+      showSlide(currentSlide + 1);
+      startCarousel();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      showSlide(currentSlide - 1);
+      startCarousel();
+    });
+
+    async function init() {
+      try {
+        const products = await getProducts();
+
+        renderCarousel(products);
+        renderProducts(products);
+        startCarousel();
+      } catch (error) {
+        shop.innerHTML = `<p class="error">${error.message}</p>`;
+      }
+    }
+
+    init();
+  </script>
+   <script type="module">
+  import Header from "./components/header.js";
+  import Footer from "./components/footer.js";
+
+  const headerElement = document.querySelector("header");
+  headerElement.innerHTML = Header();
+
+  const footerElement = document.querySelector("footer");
+  footerElement.innerHTML = Footer();
+</script>
 </body>
 </html>
