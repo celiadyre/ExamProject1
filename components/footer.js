@@ -1,6 +1,6 @@
 export default function Footer() {
   return `
-    <span class="footer-left"><h2>PETRICHOR</h2></span>
-    <span class="footer-right"><p>1234 NEW HAVEN ROAD</p></span>
+    <h2 span class="footer-left">PETRICHOR</h2></span>
+    <p span class="footer-right">1234 NEW HAVEN ROAD</p></span>
   `;
 }

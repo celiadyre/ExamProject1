@@ -35,5 +35,24 @@ export default function Header() {
           </li>
         </ul>
       </nav>
+      <div id="menu-overlay" class="menu-overlay">
+  <div class="menu-content">
+    <h3>All products</h3>
+
+      <ul class="menu-categories">
+  <li><p><a href="index.html?category=beauty">Beauty</a></p></li>
+  <li><p><a href="index.html?category=fashion">Fashion</a></p></li>
+  <li><p><a href="index.html?category=audio">Audio</a></p></li>
+  <li><p><a href="index.html?category=electronics">Electronics</a></p></li>
+</ul>
+
+    <h2>Best sellers</h2>
+
+    <div class="best-sellers" id="best-sellers"></div>
+    
+
+    <p> <a href="login.html" class="login-link">Log in</a></p>
+  </div>
+</div>
   `;
 }
