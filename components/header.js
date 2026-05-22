@@ -28,13 +28,12 @@ export default function Header() {
             />
           </a>
           </li>
-           <li>
-            <img
-              src="public/img/cart-icon.png"
-              alt="Cart Icon"
-              class="icon"
-            />
-          </li>
+           <li class="cart-nav-item">
+  <a href="#/cart" class="cart-link">
+    <img src="public/img/cart-icon.png" alt="Cart Icon" class="icon" />
+    <span id="cart-count" class="cart-count">0</span>
+  </a>
+</li>
         </ul>
       </nav>
       <div id="menu-overlay" class="menu-overlay">

@@ -3,6 +3,7 @@ import Footer from "./components/footer.js";
 import { renderProductPage } from "./pages/product.js";
 import { renderLoginPage } from "./pages/login.js";
 import { renderRegisterPage } from "./pages/register.js";
+import { renderCartPage } from "./pages/cart.js";
 
 document.querySelector("header").innerHTML = Header();
 const hamburger = document.querySelector("#hamburger");
@@ -61,6 +62,19 @@ function router() {
 
   renderRegisterPage(page);
 
+  } else if (hash === "#/cart") {
+  document.querySelector("main").style.display = "none";
+
+  let page = document.querySelector("#dynamic-page");
+
+  if (!page) {
+    page = document.createElement("div");
+    page.id = "dynamic-page";
+    app.insertBefore(page, document.querySelector("footer"));
+  }
+
+  renderCartPage(page);
+
   } else {
     document.querySelector("main").style.display = "block";
 
@@ -105,3 +119,19 @@ async function renderBestSellersMenu() {
 
 renderBestSellersMenu();
 
+export function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartCount = document.querySelector("#cart-count");
+
+  if (!cartCount) return;
+
+  cartCount.textContent = cart.length;
+
+  if (cart.length > 0) {
+    cartCount.classList.add("active");
+  } else {
+    cartCount.classList.remove("active");
+  }
+}
+
+updateCartCount();
