@@ -9,6 +9,23 @@
 <body>
     <header>
     </header>
+    <div id="menu-overlay" class="menu-overlay">
+  <div class="menu-content">
+    <h2>All products</h2>
+
+    <ul class="menu-categories">
+  <li><a href="index.html?category=beauty">Beauty</a></li>
+  <li><a href="index.html?category=fashion">Fashion</a></li>
+  <li><a href="index.html?category=audio">Audio</a></li>
+  <li><a href="index.html?category=electronics">Electronics</a></li>
+</ul>
+
+    <h2>Best sellers</h2>
+    <div class="best-sellers" id="best-sellers"></div>
+
+    <a href="login.html" class="login-link">Log in</a>
+  </div>
+</div>
 <div class="app">
     <main>
       <section class="hero" id="hero">
@@ -69,45 +86,55 @@
         .filter(product => product.tags.includes(tag))
     }
 
-    function createProductCard(product) {
-      return `
-        <button class="product-card" type="button" data-id="${product.id}">
-          <div class="product-image">
-            <img
-              src="${product.image.url}"
-              alt="${product.image.alt || product.title}"
-            />
-          </div>
+   function createProductCard(product) {
+  return `
+    <a class="product-card" href="#/product/${product.id}">
+      <div class="product-image">
+        <img
+          src="${product.image.url}"
+          alt="${product.image.alt || product.title}"
+        />
+      </div>
 
-          <div class="product-info">
-            <span class="product-title">${product.title}</span>
-            <span>${formatPrice(getDisplayPrice(product))}</span>
-          </div>
-        </button>
-      `;
-    }
+      <div class="product-info">
+        <p class="product-title">${product.title}</p>
+        <p class="product-price">${formatPrice(getDisplayPrice(product))}</p>
+      </div>
+    </a>
+  `;
+}
 
-    function renderProducts(products) {
-      const categories = [
-        { title: "Beauty", tag: "beauty" },
-        { title: "Fashion", tag: "fashion" },
-        { title: "Audio", tag: "audio" },
-        { title: "Electronics", tag: "electronics" }
-      ];
+function renderProducts(products) {
+  const categories = [
+    { title: "Beauty", tag: "beauty" },
+    { title: "Fashion", tag: "fashion" },
+    { title: "Audio", tag: "audio" },
+    { title: "Electronics", tag: "electronics" }
+  ];
 
-      shop.innerHTML = categories.map(category => {
-        const categoryProducts = getCategoryProducts(products, category.tag);
+  const params = new URLSearchParams(window.location.search);
+  const selectedCategory = params.get("category");
 
-        return `
-          <section class="category">
-            <h2>${category.title}</h2>
-            <div class="product-grid">
-              ${categoryProducts.map(createProductCard).join("")}
-            </div>
-          </section>
-        `;
-      }).join("");
-    }
+  const sortedCategories = selectedCategory
+    ? [
+        ...categories.filter(category => category.tag === selectedCategory),
+        ...categories.filter(category => category.tag !== selectedCategory)
+      ]
+    : categories;
+
+  shop.innerHTML = sortedCategories.map(category => {
+    const categoryProducts = getCategoryProducts(products, category.tag);
+
+    return `
+      <section class="category" id="${category.tag}">
+        <h2>${category.title}</h2>
+        <div class="product-grid">
+          ${categoryProducts.map(createProductCard).join("")}
+        </div>
+      </section>
+    `;
+  }).join("");
+}
 
     function renderCarousel(products) {
       const featuredProducts = products
@@ -115,18 +142,22 @@
         .slice(0, 3);
 
       slidesContainer.innerHTML = featuredProducts.map((product, index) => `
-        <article class="slide ${index === 0 ? "active" : ""}">
-          <img
-            src="${product.image.url}"
-            alt="${product.image.alt || product.title}"
-          />
+  <article class="slide ${index === 0 ? "active" : ""}">
+    
+    <a href="#/product/${product.id}" class="slide-link">
+      <img
+        src="${product.image.url}"
+        alt="${product.image.alt || product.title}"
+      />
 
-          <div class="slide-content">
-            <h1>${product.title}</h1>
-            <h2>${formatPrice(getDisplayPrice(product))}</h2>
-          </div>
-        </article>
-      `).join("");
+      <div class="slide-content">
+        <h1>${product.title}</h1>
+        <h2>${formatPrice(getDisplayPrice(product))}</h2>
+      </div>
+    </a>
+
+  </article>
+`).join("");
 
       slides = document.querySelectorAll(".slide");
     }
@@ -171,15 +202,6 @@
 
     init();
   </script>
-   <script type="module">
-  import Header from "./components/header.js";
-  import Footer from "./components/footer.js";
-
-  const headerElement = document.querySelector("header");
-  headerElement.innerHTML = Header();
-
-  const footerElement = document.querySelector("footer");
-  footerElement.innerHTML = Footer();
-</script>
+   <script type="module" src="/app.js"></script>
 </body>
 </html>
