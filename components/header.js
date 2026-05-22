@@ -20,11 +20,13 @@ export default function Header() {
       <nav id="right-nav">
         <ul id="nav-list">
           <li>
+          <a href="#/login">
             <img
               src="public/img/person-icon.png"
               alt="User Icon"
               class="icon"
             />
+          </a>
           </li>
            <li>
             <img
@@ -51,7 +53,7 @@ export default function Header() {
     <div class="best-sellers" id="best-sellers"></div>
     
 
-    <p> <a href="login.html" class="login-link">Log in</a></p>
+    <p> <a href="#/login" class="login-link">Log in</a></p>
   </div>
 </div>
   `;
