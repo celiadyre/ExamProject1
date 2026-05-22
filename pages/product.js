@@ -78,9 +78,14 @@ export async function renderProductPage(container, id) {
       </div>
     </div>
 
-    <button class="buy-button">
-      <h2>Log in to buy</h2>
-    </button>
+   ${localStorage.getItem("accessToken")
+  ? `<button type="button" class="buy-button" id="add-to-cart-button">
+      Add to cart
+    </button>`
+  : `<a href="#/login" class="buy-button">
+      Log in to buy
+    </a>`
+}
 
     <section class="reviews-section">
       <h2>Reviews</h2>
@@ -88,4 +93,57 @@ export async function renderProductPage(container, id) {
     </section>
   </section>
 `;
+
+const addToCartButton = container.querySelector("#add-to-cart-button");
+
+if (addToCartButton) {
+  addToCartButton.addEventListener("click", () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push(product);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Product added to cart!");
+  });
+}
+
+const shareButton = container.querySelector(".share-button");
+
+shareButton.addEventListener("click", async () => {
+  // URL with query/hash
+  const url = `${window.location.origin}${window.location.pathname}#/product/${id}`;
+
+  // Clipboard API
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(url);
+      alert("Link copied!");
+      return;
+    } catch (err) {
+      console.error("Clipboard API failed", err);
+    }
+  }
+
+  // Fallback
+  const textarea = document.createElement("textarea");
+  textarea.value = url;
+
+  // Prevent scrolling
+  textarea.style.position = "fixed";
+  textarea.style.left = "-9999px";
+
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    document.execCommand("copy");
+    alert("Link copied!");
+  } catch (err) {
+    console.error("Fallback copy failed", err);
+  }
+
+  document.body.removeChild(textarea);
+});
 }

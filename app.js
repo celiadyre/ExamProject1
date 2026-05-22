@@ -1,6 +1,8 @@
 import Header from "./components/header.js";
 import Footer from "./components/footer.js";
 import { renderProductPage } from "./pages/product.js";
+import { renderLoginPage } from "./pages/login.js";
+import { renderRegisterPage } from "./pages/register.js";
 
 document.querySelector("header").innerHTML = Header();
 const hamburger = document.querySelector("#hamburger");
@@ -23,26 +25,51 @@ function router() {
 
     document.querySelector("main").style.display = "none";
 
-    let productContainer = document.querySelector("#product-page");
+    let page = document.querySelector("#dynamic-page");
 
-    if (!productContainer) {
-      productContainer = document.createElement("div");
-      productContainer.id = "product-page";
-
-      app.insertBefore(productContainer, document.querySelector("footer"));
+    if (!page) {
+      page = document.createElement("div");
+      page.id = "dynamic-page";
+      app.insertBefore(page, document.querySelector("footer"));
     }
 
-    renderProductPage(productContainer, id);
+    renderProductPage(page, id);
+
+  } else if (hash === "#/login") {
+    document.querySelector("main").style.display = "none";
+
+    let page = document.querySelector("#dynamic-page");
+
+    if (!page) {
+      page = document.createElement("div");
+      page.id = "dynamic-page";
+      app.insertBefore(page, document.querySelector("footer"));
+    }
+
+    renderLoginPage(page);
+
+    } else if (hash === "#/register") {
+  document.querySelector("main").style.display = "none";
+
+  let page = document.querySelector("#dynamic-page");
+
+  if (!page) {
+    page = document.createElement("div");
+    page.id = "dynamic-page";
+    app.insertBefore(page, document.querySelector("footer"));
+  }
+
+  renderRegisterPage(page);
+
   } else {
     document.querySelector("main").style.display = "block";
 
-    const productContainer = document.querySelector("#product-page");
-
-    if (productContainer) {
-      productContainer.remove();
-    }
+    const page = document.querySelector("#dynamic-page");
+    if (page) page.remove();
   }
 }
+
+
 
 window.addEventListener("hashchange", router);
 router();
@@ -77,3 +104,4 @@ async function renderBestSellersMenu() {
 }
 
 renderBestSellersMenu();
+
