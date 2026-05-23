@@ -68,7 +68,7 @@ export async function renderProductPage(container, id) {
         <div class="product-meta">
           <div class="rating-row">
             <span class="stars">${createStars(product.rating)}</span>
-            <span>${product.reviews.length} reviews</span>
+            <p><span>${product.reviews.length} reviews</span></p>
           </div>
 
           <div class="product-tags">

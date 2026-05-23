@@ -4,6 +4,8 @@ import { renderProductPage } from "./pages/product.js";
 import { renderLoginPage } from "./pages/login.js";
 import { renderRegisterPage } from "./pages/register.js";
 import { renderCartPage } from "./pages/cart.js";
+import { renderCheckoutPage } from "./pages/checkout.js";
+import { renderSuccessPage } from "./pages/success.js";
 
 document.querySelector("header").innerHTML = Header();
 const hamburger = document.querySelector("#hamburger");
@@ -74,6 +76,32 @@ function router() {
   }
 
   renderCartPage(page);
+
+  } else if (hash === "#/checkout") {
+  document.querySelector("main").style.display = "none";
+
+  let page = document.querySelector("#dynamic-page");
+
+  if (!page) {
+    page = document.createElement("div");
+    page.id = "dynamic-page";
+    app.insertBefore(page, document.querySelector("footer"));
+  }
+
+  renderCheckoutPage(page);
+
+  } else if (hash === "#/success") {
+  document.querySelector("main").style.display = "none";
+
+  let page = document.querySelector("#dynamic-page");
+
+  if (!page) {
+    page = document.createElement("div");
+    page.id = "dynamic-page";
+    app.insertBefore(page, document.querySelector("footer"));
+  }
+
+  renderSuccessPage(page);
 
   } else {
     document.querySelector("main").style.display = "block";
