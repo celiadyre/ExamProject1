@@ -147,12 +147,13 @@ function renderProducts(products) {
 
       slidesContainer.innerHTML = featuredProducts.map((product, index) => `
   <article class="slide ${index === 0 ? "active" : ""}">
-    
+
     <a href="#/product/${product.id}" class="slide-link">
       <img
         src="${product.image.url}"
         alt="${product.image.alt || product.title}"
       />
+      
 
       <div class="slide-content">
         <h1>${product.title}</h1>

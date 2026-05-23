@@ -59,7 +59,7 @@ export function renderCartPage(container) {
 
               <div class="cart-rating-row">
                 <span class="stars">${createStars(product.rating || 0)}</span>
-                <h4><span>${product.reviews?.length || 0} reviews</span></h4>
+                <p><span>${product.reviews?.length || 0} reviews</span></p>
               </div>
 
               <p class="cart-tags">
@@ -97,12 +97,11 @@ export function renderCartPage(container) {
         `).join("")}
       </div>
 
-      <h2 class="cart-total">
+      <div class="cart-total">
         <a href="#/checkout" class="checkout-button">
-          <span>Go to checkout</span>
+          <span><h2>Go to checkout</h2></span>
           <strong>${formatPrice(total)}</strong>
         </a>
-      </h2>
     </section>
   `;
 

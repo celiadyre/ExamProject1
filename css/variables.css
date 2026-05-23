@@ -59,3 +59,14 @@ button{
 span{
     font-size: var(--small-txt);
 }
+
+
+
+@media (max-width: 768px) {
+  :root {
+    --heading-2: 28px;
+    --heading-3: 24px;
+    --paragraph: 18px;
+    --small-txt: 12px;
+  }
+}

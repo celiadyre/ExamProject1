@@ -3,5 +3,6 @@
 21.05.26 ChatGPT usage to understand query link usage for hamburger menu - making it so that when a category/tag is pressed it changes the first category of the homepage (solution made to give functionality to menu items)
 22.05.26 Comment: Code for URL copy to clipboard via share button heavily inspired by this article - https://medium.com/@rakviashvili95/two-methods-of-copy-to-clipboard-by-javascript-60a288136c68
 22.05.26 Troubleshooting advice from Google AI and ChatGPT for login/register API
+23.05.26 ChatGPT usage for explaining and debugging hero carousel not going to correct product link - using pointer.events in CSS now to fix
 
 AI used throughout: VS Code Copilot for automatic coding (tab function). ChatGPT for debugging and fixing broken code.

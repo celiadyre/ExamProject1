@@ -59,7 +59,7 @@ export async function renderProductPage(container, id) {
 
       <div class="product-details">
         <div class="product-heading">
-          <h3>${product.title}</h3>
+          <h2>${product.title}</h2>
           <p>${formatPrice(getDisplayPrice(product))}</p>
         </div>
 
@@ -80,10 +80,10 @@ export async function renderProductPage(container, id) {
 
    ${localStorage.getItem("accessToken")
   ? `<button type="button" class="buy-button" id="add-to-cart-button">
-      Add to cart
+      <h2>Add to cart</h2>
     </button>`
   : `<a href="#/login" class="buy-button">
-      Log in to buy
+      <h2>Log in to buy</h2>
     </a>`
 }
 

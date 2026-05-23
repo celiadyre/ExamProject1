@@ -16,9 +16,9 @@ export function renderSuccessPage(container) {
           class="success-icon"
         />
 
-        <h1>Your order is received!</h1>
+        <h2>Your order is received!</h2>
 
-        <h2>Order #${orderNumber}</h2>
+        <h3>Order #${orderNumber}</h3>
       </div>
     </section>
   `;

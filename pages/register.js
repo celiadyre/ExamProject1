@@ -7,7 +7,7 @@ export function renderRegisterPage(container) {
         <h2>Register</h2>
 
         <form id="login-form">
-          <input type="text" name="name" placeholder="Name:" required />
+          <input type="text" name="name" placeholder="First name:" required />
 
           <input type="email" name="email" placeholder="E-mail:" required />
 

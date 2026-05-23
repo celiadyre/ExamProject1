@@ -49,7 +49,7 @@ export function renderCheckoutPage(container) {
 <div id="payment-fields"></div>
 
         <button type="submit" class="checkout-submit-button">
-          <span>Complete purchase</span>
+          <span><h2>Complete purchase</h2></span>
           <strong>${formatPrice(total)}</strong>
         </button>
       </form>
