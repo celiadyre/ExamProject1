@@ -100,7 +100,10 @@ if (addToCartButton) {
   addToCartButton.addEventListener("click", () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    cart.push(product);
+    cart.push({
+  ...product,
+  quantity: 1,
+});
     localStorage.setItem("cart", JSON.stringify(cart));
 
     const cartPopup = document.querySelector("#cart-popup");

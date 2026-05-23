@@ -32,8 +32,11 @@ export function renderCartPage(container) {
   }
 
   const total = cart.reduce((sum, item) => {
-    return sum + Number(item.discountedPrice ?? item.price);
-  }, 0);
+  const price = Number(item.discountedPrice ?? item.price ?? 0);
+  const quantity = Number(item.quantity || 1);
+
+  return sum + price * quantity;
+}, 0);
 
   container.innerHTML = `
     <section class="cart-page">
@@ -68,7 +71,7 @@ export function renderCartPage(container) {
                   class="cart-quantity"
                   type="number"
                   min="1"
-                  value="1"
+                  value="${product.quantity || 1}"
                   data-index="${index}"
                 />
 
@@ -121,4 +124,19 @@ export function renderCartPage(container) {
       renderCartPage(container);
     });
   });
+
+  container.querySelectorAll(".cart-quantity").forEach(input => {
+  input.addEventListener("change", () => {
+    const index = Number(input.dataset.index);
+
+    const updatedCart = getCart();
+
+    updatedCart[index].quantity = Number(input.value);
+
+    saveCart(updatedCart);
+
+    renderCartPage(container);
+  });
+});
 }
+
