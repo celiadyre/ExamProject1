@@ -124,7 +124,7 @@ async function renderBestSellersMenu() {
     return;
   }
 
-  const response = await fetch("data/products.json");
+  const response = await fetch("./data/products.json");
   const result = await response.json();
 
   const bestSellers = result.data
