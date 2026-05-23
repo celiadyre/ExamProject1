@@ -1,4 +1,4 @@
-const API_URL = "./data/products.json";
+const API_URL = "./Data/products.json";
 
 async function getProducts() {
   const response = await fetch(API_URL);
